@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do-List</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            background-color: #03f437;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #100f0f;
+            color: #3505f7;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #cdeb07;
+            box-shadow: 0 0 10px rgba(11, 12, 0, 0.1);
+        }
+
+        h2 {
+            color: #f20505;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px salmon #f30707;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f4efef;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .urgent {
+            color: red;
+            text-overflow: clip;
+        }
+
+        .important {
+            color: rgb(51, 0, 255);
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: #ed1010;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>To-Do List</h1>
+    </header>
+
+    <main>
+        <h2>Tasks</h2>
+        <ul id="taskList">
+            <!-- Tasks will be dynamically added here -->
+        </ul>
+
+        <script>
+            // Sample tasks
+            const tasks = [
+                { name: 'Generating PPTs for Enginners', deadline: '29/12/2023', priority: 'urgent', dependency: 2, done: false },
+                { name: 'Generating stories for schools', deadline: '30/12/2023', priority: 'important', dependency: 1, done: false },
+                // Add more tasks as needed
+            ];
+
+            // Function to render tasks
+            function renderTasks() {
+                const taskList = document.getElementById('taskList');
+                taskList.innerHTML = '';
+
+                tasks.forEach((task, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span class="${task.done ? 'done' : ''}">${task.name}</span>
+                        <span>Deadline: ${task.deadline}</span>
+                        <span class="${task.priority}">${task.priority}</span>
+                        <button onclick="toggleTask(${index})">Toggle Done</button>
+                    `;
+                    taskList.appendChild(listItem);
+                });
+            }
+
+            // Function to toggle task completion
+            function toggleTask(index) {
+                tasks[index].done = !tasks[index].done;
+                renderTasks();
+            }
+
+            // Initial rendering
+            renderTasks();
+        </script>
+    </main>
+</body>
+</html>
