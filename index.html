@@ -1,80 +1,111 @@
-<!--LANDING PAGE-->
-<!--LANDING PAGE-->
-<!--LANDING PAGE-->
-<!--LANDING PAGE-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Landing Page</title>
+    <title>To-Do-List</title>
     <style>
         body {
-            font-family: 'Congenial Black', sans-serif;
-            margin: 10;
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            background-color: #03f437;
+            margin: 0;
             padding: 0;
-            box-sizing: content-box;
-            background-color: #fdfafa;
-            color: #333;
         }
 
         header {
-            background-color: #effc08;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            color: #3a06f7;
-            padding: 20px;
+            background-color: #100f0f;
+            color: #3505f7;
+            padding: 1em;
             text-align: center;
         }
 
-        section {
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #cdeb07;
+            box-shadow: 0 0 10px rgba(11, 12, 0, 0.1);
+        }
+
+        h2 {
+            color: #f20505;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px salmon #f30707;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f4efef;
             display: flex;
-            justify-content: space-around;
-            padding: 50px;
+            justify-content: space-between;
         }
 
-        article {
-            flex: 1;
-            padding: 20px;
-            background-color: #07eb07;
-            margin: 5px;
-            border-radius: 50px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .urgent {
+            color: red;
+            text-overflow: clip;
         }
 
-        footer {
-            background-color: #057df5;
-            color: #ecf0f1;
-            padding: 20px;
-            text-align: center;
+        .important {
+            color: rgb(51, 0, 255);
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: #ed1010;
         }
     </style>
 </head>
 <body>
-
     <header>
-        <h>HI this is RANJITH GS</h>
-        <h1>MY FIRST LANDING PAGE</h1>
-        <p>A web development project for beginners</p>
+        <h1>To-Do List</h1>
     </header>
 
-    <section>
-        <article>
-            <h2>Column 1</h2>
-            <p>Content for column 1...</p>
-        </article>
+    <main>
+        <h2>Tasks</h2>
+        <ul id="taskList">
+            <!-- Tasks will be dynamically added here -->
+        </ul>
 
-        <article>
-            <h2>Column 2</h2>
-            <p>Content for column 2...</p>
-        </article>
-    </section>
+        <script>
+            // Sample tasks
+            const tasks = [
+                { name: 'Generating PPTs for Enginners', deadline: '29/12/2023', priority: 'urgent', dependency: 2, done: false },
+                { name: 'Generating stories for schools', deadline: '30/12/2023', priority: 'important', dependency: 1, done: false },
+                // Add more tasks as needed
+            ];
 
-    <footer>
-        <p>&copy; 2023 Your Landing Page. All rights reserved.</p>
-        <p>ranjithgs1234@gmail.com</p>
-        <img src="https://static.vecteezy.com/system/resources/previews/001/218/633/original/black-stylish-crossed-arrow-vector.jpg" width="90" height="100">
-    </footer>
+            // Function to render tasks
+            function renderTasks() {
+                const taskList = document.getElementById('taskList');
+                taskList.innerHTML = '';
 
+                tasks.forEach((task, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span class="${task.done ? 'done' : ''}">${task.name}</span>
+                        <span>Deadline: ${task.deadline}</span>
+                        <span class="${task.priority}">${task.priority}</span>
+                        <button onclick="toggleTask(${index})">Toggle Done</button>
+                    `;
+                    taskList.appendChild(listItem);
+                });
+            }
+
+            // Function to toggle task completion
+            function toggleTask(index) {
+                tasks[index].done = !tasks[index].done;
+                renderTasks();
+            }
+
+            // Initial rendering
+            renderTasks();
+        </script>
+    </main>
 </body>
 </html>
